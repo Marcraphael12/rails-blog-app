@@ -127,7 +127,7 @@ rails server
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/Marcraphael12/rails_blog_app/issues)
+Feel free to check the [issues page](https://github.com/Marcraphael12/rails-blog-app/issues)
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
