@@ -5,7 +5,7 @@
         <%= image_tag(user.photo, class: "add-css-class") %>
       </div>
       <div class="user-data border">
-        <h1><%= @user.Name %></h1>
+        <h1><%= @user.name %></h1>
         <p class="number-posts">Number of posts: <%= @user.post_counter %></p>
       </div>
     </div>
@@ -27,7 +27,7 @@
               <h4>Comments:</h4>
               <ul>
                 <% post.recent_comments.each do |comment| %>
-                  <p><%= comment.author.name %>: <%= comment.text %></p>
+                  <p><%= comment.user.name %>: <%= comment.text %></p>
                 <% end %>
               </ul>
             </div>
