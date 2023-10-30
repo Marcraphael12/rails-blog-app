@@ -12,5 +12,6 @@ class PostsController < ApplicationController
     # Find a specific post based on the `id` parameter passed
     # in the request. It assigns the found post to the `@posts` instance variable, which can then be
     # used in the view to display the details of the post.
+    @post = Post.find(params[:id])
   end
 end
