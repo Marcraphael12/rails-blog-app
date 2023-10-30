@@ -1,17 +1,39 @@
-<div>
-  <h1>List of all posts</h1>
-</div>
-
-<div>
-  <ul>
-    <li>
-      Hey i am a post 😉
-    </li>
-    <li>
-      wow... me too 🤗
-    </li>
-    <li>
-      we are all posts hey 😒
-    </li>
-  </ul>
-</div>
+<main>
+  <section>
+    <div class="card">
+      <div class="user-image border">
+        <%= image_tag(user.photo, class: "add-css-class") %>
+      </div>
+      <div class="user-data border">
+        <h1><%= @user.Name %></h1>
+        <p class="number-posts">Number of posts: <%= @user.post_counter %></p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <ul>
+      <% @posts.each do |post| %>
+        <%= link_to user_post_path(user_id: post.author_id, id: post.id) do %>
+          <li class="card hover column">
+            <div class="card column">
+              <h2><%= post.title %></h2>
+              <p><%= post.text %></p>
+              <div class="right">
+                <span>Comments: <%= post.comments_counter %></span>
+                <span>Likes: <%= post.likes_counter %> </span>
+              </div>
+            </div>
+            <div class="commets-container">
+              <h4>Comments:</h4>
+              <ul>
+                <% post.recent_comments.each do |comment| %>
+                  <p><%= comment.author.name %>: <%= comment.text %></p>
+                <% end %>
+              </ul>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+</main>
