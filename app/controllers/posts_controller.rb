@@ -3,8 +3,8 @@ class PostsController < ApplicationController
     # Find a specific user based on the `id` parameter passed
     # in the request. It assigns the found user to the `@users` instance variable, which can then be
     # used in the view to display the details of the user.
-    @users = User.find(params[:author_id])
-    @user = User.find(params[:author_id])
+    @users = User.find(params[:user_id])
+    @user = User.find(params[:user_id])
 
     @posts = @users.posts
   end
@@ -24,7 +24,7 @@ class PostsController < ApplicationController
   # creates a new post associated with a user and redirects to the user's page
   # if successful, or renders the new post form with an error message if unsuccessful.
   def create
-    @author = User.find(params[:author_id])
+    @author = User.find(params[:user_id])
     @post = @author.posts.new(post_params)
 
     if @post.save
