@@ -1,17 +1,19 @@
-<div>
-  <h1>List of all users</h1>
-</div>
-
-<div>
-  <ul>
-    <li>
-      Marc raphael
-    </li>
-    <li>
-      Clarielle larissa
-    </li>
-    <li>
-      Rita Nkem Danniel
-    </li>
-  </ul>
-</div>
+<main>
+  <section>
+    <ul>
+      <% @users.each do |user|%>
+        <%= link_to user do %>
+          <li class="card hover">
+            <div class="user-image border">
+              <%= image_tag(user.photo, class: "add-css-class") %>
+            </div>
+            <div class="user-data border">
+              <h1><%= user.name %></h1>
+              <p class="number-posts">Number of posts: <%= user.post_counter %></p>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>  
+  </section>
+</main>
