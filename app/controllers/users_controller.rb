@@ -9,6 +9,6 @@ class UsersController < ApplicationController
     # Find a specific user based on the `id` parameter passed
     # in the request. It assigns the found user to the `@users` instance variable, which can then be
     # used in the view to display the details of the user.
-    @users = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 end
