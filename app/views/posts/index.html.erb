@@ -1,6 +1,6 @@
 <main>
   <section>
-    <div class="card">
+    <div class="card pagination">
       <div class="user-image border">
         <%= image_tag(@user.photo, class: "add-css-class") %>
       </div>
@@ -16,7 +16,7 @@
   <section>
     <ul>
       <% @posts.each do |post| %>
-        <%= link_to user_post_path(author_id: post.author_id, id: post.id) do %>
+        <%= link_to user_post_path(user_id: post.author_id, id: post.id) do %>
           <li class="card hover column">
             <div class="card column">
               <h2><%= post.title %></h2>
