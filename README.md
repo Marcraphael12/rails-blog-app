@@ -20,6 +20,7 @@
   - [Install](#install)
   - [Usage](#usage)
 - [👥 Authors](#authors)
+- [👥 Collaborators](#collaborators)
 - [🔭 Future Features](#future-features)
 - [🤝 Contributing](#contributing)
 - [⭐️ Show your support](#support)
@@ -115,6 +116,14 @@ rails server
 - GitHub: [@Marcraphael12](https://github.com/Marcraphael12)
 - Twitter: [@Marcraphael20](https://twitter.com/MarcRaphael20)
 - LinkedIn: [Marc raphael](http://www.linkedin.com/in/marc-raphael-326039204)
+
+## Collaborators <a name="collaborators"></a>
+
+👤 **Tomas Esquivel**
+
+- GitHub: [@tomasesquivelgc](https://github.com/tomasesquivelgc)
+- Twitter: [@EsquivelTomas](https://twitter.com/EsquivelTomas)
+- LinkedIn: [Tomas Esquivel](https://www.linkedin.com/in/tomás-esquivel-b2160568/)
 
 ## 🔭 Future Features <a name="future-features"></a>
 
