@@ -1,58 +1,64 @@
 require 'rails_helper'
-RSpec.describe 'Renders the post show page', type: :feature do
-  before :each do
-    @user = User.create(name: 'Marc', photo: 'https://media.gettyimages.com/id/1278139568/nl/foto/studioportret-van-20-jaar-oude-vrouw.jpg?s=612x612&w=0&k=20&c=3Bd4Ot79Z1ZKoCwAl0qFQ9hoBrQTar4SqtPefHOBEkg=',
-                        bio: 'Teacher from Brazil.', posts_counter: 5)
 
-    @first_post = Post.create(title: 'Hello there', text: 'This is my first post',
-                              comments_counter: 0, likes_counter: 0, author_id: @user.id)
-    Comment.create(text: 'Hi Marc!', author_id: @user.id, post_id: @first_post.id)
-    Comment.create(text: 'How are you?', author_id: @user.id, post_id: @first_post.id)
-    Comment.create(text: 'Awesome Bro', author_id: @user.id, post_id: @first_post.id)
-
-    @first_post.update(comments_counter: @first_post.comments.count)
-    visit user_posts_path(@first_post.author, @first_post)
+RSpec.describe 'Renders users Show Page', type: :feature do
+  before(:each) do
+    # Create necessary objects for the tests, such as a user and their posts
+    @user = User.create(id: 1, name: 'Marc', photo: 'profile.jpg', bio: 'Software Engineer', posts_counter: 10)
+    @first_post = Post.create(author: @user, title: 'Hi people', text: 'Lorem ipsum dolor sit amet.')
+    Post.create(author: @user, title: 'Good', text: 'Consectetur adipiscing elit.')
+    Post.create(author: @user, title: 'Dev', text: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.')
+    @post = Post.create(author: @user, title: 'Hello', text: 'Lol')
   end
 
-  scenario 'displays the post title' do
-    visit user_posts_path(@first_post.author, @first_post)
+  scenario 'Display user profile picture' do
+    visit user_path(@user.id)
+    expect(page).to have_css("img[src*='profile.jpg']")
+  end
+
+  scenario 'Display user username' do
+    visit user_path(@user.id)
+    expect(page).to have_content('Marc')
+  end
+
+  scenario 'Display number of user posts' do
+    visit user_path(@user.id)
+    expect(page).to have_content('Number of posts: 14')
+  end
+
+  scenario 'Display user bio' do
+    visit user_path(@user.id)
+    expect(page).to have_content('Software Engineer')
+  end
+
+  scenario 'Display users first 3 posts' do
+    visit user_path(@user.id)
+    expect(page).to have_content(@user.recents_posts[0].title)
+    expect(page).to have_content(@user.recents_posts[1].text)
+    expect(page).to have_content(@user.recents_posts[2].author.id)
     expect(page).to have_content(@first_post.author.name)
   end
 
-  # ################################################################*************************************
-
-  scenario 'check if you can see who wrote the post' do
-    visit user_post_path(@user, @first_post) # final requirement
-    expect(page).to have_content(@first_post.author.name)
+  scenario 'Ensure other user posts are not displayed' do
+    visit user_path(@user.id)
+    expect(page).to have_no_content(Post.where(author: @user))
   end
 
-  # ################################################################***************************************
+  scenario 'View all posts button redirects to user posts index page' do
+    # first visit the user page to find the "see all posts button"
+    visit user_path(@user)
 
-  scenario 'displays number of comments' do
-    visit user_posts_path(@first_post.author, @first_post)
-    expect(page).to have_content(/comments: 3/i)
+    # Click "See all posts" button redirects to the user's posts index page
+    click_link 'See all posts'
+
+    # this one is checking if user is taken to users/:id/posts
+    expect(page).to have_current_path(user_posts_path(@user))
   end
 
-  scenario 'displays number of likes' do
-    visit user_posts_path(@first_post.author, @first_post)
-    expect(page).to have_content("Likes: #{@first_post.likes_counter}")
-  end
+  scenario 'Clicking on a user post redirects to post show page' do
+    visit user_path(@user)
 
-  scenario 'displays comments' do
-    visit user_posts_path(@first_post.author, @first_post)
-    expect(page).to have_content('Hi Marc!')
-  end
-
-  scenario 'displays the username of each commentor' do
-    expect(page).to have_content(@user.name)
-    @first_post.comments.each do |comment|
-      expect(page).to have_content(comment.author.name)
-    end
-  end
-
-  scenario 'displays the comments left by each commentor' do
-    @first_post.comments.each do |comment|
-      expect(page).to have_content(comment.text)
-    end
+    # Test: Clicking on a user's post redirects to the post's show page
+    click_link('See all posts')
+    expect(page).to have_current_path(user_posts_path(@user))
   end
 end

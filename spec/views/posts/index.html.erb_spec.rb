@@ -8,8 +8,8 @@ describe 'Post index page', type: :feature do
     @post_three = Post.create(author: @user, title: 'The Oracle', text: 'There is no spoon')
     @post_four = Post.create(author: @user, title: 'Choice', text: 'I believe I can save Morpheus')
     @post_five = Post.create(author: @user, title: 'Agent encounter', text: 'still only human')
-    @comment = Comment.create(post_id: @post, author_id: @user, text: 'time to fight')
-    @comment_two = Comment.create(post_id: @post_two, author_id: @user, text: 'time to fight')
+    @comment = Comment.create(post_id: @post, author_id: @user, text: 'I know kung fu')
+    @comment_two = Comment.create(post_id: @post_two, author_id: @user, text: 'I know kung fu')
     visit user_posts_path(@user)
   end
 
