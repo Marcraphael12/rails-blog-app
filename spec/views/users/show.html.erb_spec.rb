@@ -28,5 +28,31 @@ RSpec.describe 'Renders the post show page', type: :feature do
 
   # ################################################################***************************************
 
-  
+  scenario 'displays number of comments' do
+    visit user_posts_path(@first_post.author, @first_post)
+    expect(page).to have_content(/comments: 3/i)
+  end
+
+  scenario 'displays number of likes' do
+    visit user_posts_path(@first_post.author, @first_post)
+    expect(page).to have_content("Likes: #{@first_post.likes_counter}")
+  end
+
+  scenario 'displays comments' do
+    visit user_posts_path(@first_post.author, @first_post)
+    expect(page).to have_content('Hi Marc!')
+  end
+
+  scenario 'displays the username of each commentor' do
+    expect(page).to have_content(@user.name)
+    @first_post.comments.each do |comment|
+      expect(page).to have_content(comment.author.name)
+    end
+  end
+
+  scenario 'displays the comments left by each commentor' do
+    @first_post.comments.each do |comment|
+      expect(page).to have_content(comment.text)
+    end
+  end
 end
