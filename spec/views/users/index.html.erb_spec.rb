@@ -36,5 +36,21 @@ describe 'Post index page', type: :feature do
     expect(page).to have_content(@post_three.text)
   end
 
-  
+  it 'shows the first comments of a post' do
+    expect(page).to have_content(@comment.text)
+    expect(page).to have_content(@comment_two.text)
+  end
+
+  it 'shows the number of comments and likes for each post' do
+    expect(page).to have_content(@post.comments_counter)
+    expect(page).to have_content(@post_four.comments_counter)
+    expect(page).to have_content(@post_two.likes_counter)
+    expect(page).to have_content(@post_three.likes_counter)
+  end
+
+  it 'has no pagination for five posts or less' do
+    expect(page).not_to have_selector('nav.pagination')
+  end
+
+ 
 end
