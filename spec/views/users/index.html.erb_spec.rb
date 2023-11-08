@@ -26,4 +26,15 @@ describe 'Post index page', type: :feature do
     expect(page).to have_content(@user.posts_counter)
   end
 
+  it 'shows the title of posts' do
+    expect(page).to have_content(@post.title)
+    expect(page).to have_content(@post_four.title)
+  end
+
+  it 'shows some of the posts text' do
+    expect(page).to have_content(@post_two.text)
+    expect(page).to have_content(@post_three.text)
+  end
+
+  
 end
