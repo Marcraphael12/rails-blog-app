@@ -52,5 +52,20 @@ describe 'Post index page', type: :feature do
     expect(page).not_to have_selector('nav.pagination')
   end
 
- 
+  it 'redirects to post show page of a clicked post' do
+    click_link @post.title
+    expect(page).to have_current_path(user_post_path(@user, @post))
+  end
+
+  it 'redirects to post show page of a clicked post' do
+    click_link @post_two.title
+    expect(page).to have_current_path(user_post_path(@user, @post_two))
+  end
+
+  context 'when there are more than 5 posts' do
+    before :each do
+      @post_six = Post.create(author: @user, title: 'Resurrection', text: 'I am the One')
+      visit user_posts_path(@user)
+    end
+  end
 end
