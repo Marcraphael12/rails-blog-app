@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   #  A method call that is used to protect against
   # Cross-Site Request Forgery (CSRF) attacks in Rails applications.
   protect_from_forgery with: :exception
-  
+
   before_action :authenticate_user!
 
   # setting up a
