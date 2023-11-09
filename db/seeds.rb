@@ -7,41 +7,55 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
+# Este archivo seed crea varios usuarios de ejemplo en la base de datos.
 
-10.times do |n|
-  User.create(
-    name: "User #{(n) + 1}",
-    photo: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8dXNlciUyMGljb24lMjBwaWN0dXJlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
-    bio: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi quaerat eum enim suscipit est repellendus, et natus vel praesentium excepturi quisquam saepe eos impedit ducimus nesciunt exercitationem. Vel, eius praesentium! #{(n) + 1}"
-  )
+# Define el número de usuarios que deseas crear
+# num_users = 10
+# puts 'creando usuarios'
+# Utiliza un bucle times para crear usuarios con datos aleatorios
+# num_users.times do |i|
+#   User.create(
+#     name: "User #{i + 1}",
+#     photo: "Photo #{i + 1}",
+#     bio: "Bio #{i + 1}",
+#     postCounter: 0    
+#   )
+#   puts 'ususario creado exitosamente'
+# end
+
+# Puedes ajustar el número de usuarios y los datos aleatorios según tus necesidades.
+
+
+require 'benchmark'
+
+# Benchmark.bm do |x|
+#   Post.all.each  do |post|
+#     x.report("loading the post number#{post.id}") do
+#       # Tu código para cargar cada usuario aquí
+#     end
+#   end
+# end
+
+puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Benchmark.bm do |x|
+#   Post.includes(:author).each do |post|
+#     x.report("loading the post number #{post.id}") do
+#       # Tu código para cargar cada usuario aquí
+#     end
+#   end
+# end
+
+# n_posts = 10
+
+# n_posts.times do |i|
+#   Post.create(  title: "random title", text: "some random text", author: User.all.sample  )
+# end
+
+# puts Post.all
+
+
+Post.includes(:author).each do |post|
+  puts "#{post.title} was written by #{post.author.name}"
 end
 
-
-30.times do
-  random_user = User.all.sample
-  Post.create(
-    title: "Title of the post",
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi quaerat eum enim suscipit est repellendus, et natus vel praesentium excepturi quisquam saepe eos impedit ducimus nesciunt exercitationem. Vel, eius praesentium!",
-    author_id: random_user.id
-  )
-end
-
-30.times do
-  random_user = User.all.sample
-  random_post = Post.all.sample
-  Comment.create(
-    author_id: random_user.id,
-    post_id: random_post.id,
-    text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi quaerat eum enim suscipit est repellendus, et natus vel praesentium excepturi quisquam saepe eos impedit ducimus nesciunt exercitationem. Vel, eius praesentium! Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi quaerat eum enim suscipit est repellendus, et natus vel praesentium excepturi quisquam saepe eos impedit ducimus nesciunt exercitationem. Vel, eius praesentium! '#{random_post.title}'"
-  )
-end
-
-
-30.times do
-  random_user = User.all.sample
-  random_post = Post.all.sample
-  Like.create(
-    author_id: random_user.id,
-    post_id: random_post.id
-  )
-end
