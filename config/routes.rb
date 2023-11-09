@@ -1,4 +1,5 @@
 Rails.application.routes.draw do  
+  devise_for :models
   get 'comment/new'
   get 'posts/index'
   get 'posts/show'
