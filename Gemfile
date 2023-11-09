@@ -82,3 +82,5 @@ end
 
 gem 'activesupport', '7.0.7'
 gem 'annotate', '~> 3.2'
+
+gem "devise", "~> 4.9"
