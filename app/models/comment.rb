@@ -1,5 +1,5 @@
 class Comment < ApplicationRecord
-  belongs_to :author, class_name: 'User'
+  belongs_to :author, class_name: 'User', dependent: :destroy
   belongs_to :post
 
   # defining callbacks in the `Comment` model.
@@ -9,6 +9,6 @@ class Comment < ApplicationRecord
     # updating the `CommentsCounter` attribute
     # of the associated `post` object with the count of comments that belong to that post. It is using
     # the `update` method provided by ActiveRecord to update the attribute value.
-    post.update(comments_counter: post.comments.count)
+    post.increment!(:comments_counter)
   end
 end

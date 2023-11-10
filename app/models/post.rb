@@ -2,17 +2,17 @@ class Post < ApplicationRecord
   # defining an association between the `Post`
   # model and the `User` model. It indicates that a `Post` belongs to an `Author`, and the `Author` is
   # an instance of the `User` model.
-  belongs_to :author, class_name: 'User'
+  belongs_to :author, class_name: 'User', dependent: :destroy
 
   # defining associations between the `Post`
   # model and the `Comment` and `Like` models, respectively.
-  has_many :comments, foreign_key: 'post_id'
-  has_many :likes, foreign_key: 'post_id'
+  has_many :comments, foreign_key: 'post_id', dependent: :destroy
+  has_many :likes, foreign_key: 'post_id', dependent: :destroy
 
   # These lines of code are defining validations for the `Post` model.
   validates :title, presence: true, length: { maximum: 250 }
-  # validates :likes_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-  # validates :comments_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :likes_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
+  validates :comments_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
 
   after_save :update_user_posts_counter
 
