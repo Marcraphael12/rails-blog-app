@@ -12,4 +12,10 @@ class LikesController < ApplicationController
       render :new, notice: 'Error Occured While Liking The Post'
     end
   end
+
+  def destroy
+    @post = Post.find(params[:id])
+    @author = @post.author
+    @post.decrement!(:likes_counter)
+  end
 end
