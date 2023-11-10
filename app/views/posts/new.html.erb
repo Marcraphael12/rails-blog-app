@@ -1,10 +1,16 @@
-<main>
-  <h1>Add a new post</h1>
-  <%= form_with model: @post, url: user_posts_path, class: "form" do |form| %>
-    <%= form.label :title %> <br>
-    <%= form.text_field :title %> <br>
-    <%= form.label :text %> <br>
-    <%= form.text_area :text , cols: 30, rows: 10 %> <br>
-    <%= form.submit "Submit", class: "btn" %>
-  <% end %>
-</main>
+<%= form_with(model: [@user, @post], url: user_posts_path(@user), class: 'bg-success d-flex flex-column pt-5 px-5 pb-4'  ) do |f| %>
+  
+    <%= f.hidden_field :user_id %>
+
+  <%= f.label :title, class: "text-white h2 form-label" %>
+  <%= f.text_field :title, class: "form-control" %>
+
+  <%= f.label :text, class: "text-white h2" %>
+  <%= f.text_area :text, class: "form-control" %>
+
+  <div class="text-center mt-4" >
+    <%= f.submit "Create Post", class: "btn btn-primary" %>  
+  </div>
+
+<% end %>
+
