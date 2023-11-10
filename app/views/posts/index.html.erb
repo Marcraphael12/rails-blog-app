@@ -1,53 +1,41 @@
-<div class="bg-dark min-vh-100 text-white container pt-5" style="">
-
-  <%= render 'users/user' , user: @user %>
-
-    <% @user.all_posts.each do |post| %>
-
-
-      <div class="bg-secondary px-3 pt-3 pb-2 mb-2">
-
-        <div class="bg-secondary">          
-            <a class="text-white" href="<%= user_post_path(@user, post) %>">
-              <h2>Post #<%=post.id%></h2>
-            </a>
-
-          <h5 class="pt-2">
-            <%=post.text%>
-          </h5>
-
-          <div class="d-flex justify-content-end gap-4 pt-3 align-items-center" >
-            <span><h6>Comments: <%=post.comments_counter%> </h6></span>
-            <span class="me-3" ><h6>Likes: <%=post.likes_counter%> </h6></span>            
-            
-           
-
-          </div>
-
-            
-            
-        </div>
-
-        
-        
-
-
-
-        <div class="bg-secondary pt-3">
-          <%post.recent_comments.each do |comment|%>
-            <h6>
-              <%=@users.find( comment.author_id ).name%>:
-            </h6>
-            <h6>
-              <%=comment.text%>
-            </h6>
-            <%end%>
-        </div>
-
+<main>
+  <section>
+    <div class="card pagination">
+      <div class="user-image border">
+        <%= image_tag(@user.photo, class: "add-css-class") %>
       </div>
-
-
-
-      <%end%>
-
-</div>
+      <div class="user-data border">
+        <h1><%= @user.name %></h1>
+        <% if current_user %>
+          <%= link_to "Add a post",new_user_post_path(@user), method: :get, class: "btn right" %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+  <section>
+    <ul>
+      <% @posts.each do |post| %>
+        <%= link_to user_post_path(user_id: post.author_id, id: post.id) do %>
+          <li class="card hover column">
+            <div class="card column">
+              <h2><%= post.title %></h2>
+              <p><%= post.text %></p>
+              <div class="right">
+                <span>Comments: <%= post.comments_counter %></span>
+                <span>Likes: <%= post.likes_counter %> </span>
+              </div>
+            </div>
+            <div class="commets-container">
+              <h4>Comments:</h4>
+              <ul>
+                <% post.recent_comments.each do |comment| %>
+                  <p><%= comment.author.name %>: <%= comment.text %></p>
+                <% end %>
+              </ul>
+            </div>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+</main>

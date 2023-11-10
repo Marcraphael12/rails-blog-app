@@ -1,23 +1,8 @@
-
-<%= form_for [@user, @post, @comment], url: user_post_comments_path(params[:user_id], @post)   do |f| %>
-  
-  <div class="text-white bg-success text-white text-center" >
-    <h1>New Comment</h1>
-
-      
-
-      <%= f.label :write_your_comment_here %>
-      <%= f.text_area :text %>
-    
-
-    
-
-    
-      <%= f.submit 'Create Comment' %>
-    
-  
-  
-  
-  
-  
-<% end %>
+<main>
+  <h1>Add a new comment</h1>
+  <%= form_with model: @comment, url: user_post_comments_path, class: "form" do |form| %>
+    <%= form.label :text %> <br>
+    <%= form.text_area :text , cols: 30, rows: 10 %> <br>
+    <%= form.submit "Submit", class: "btn" %>
+  <% end %>
+</main>

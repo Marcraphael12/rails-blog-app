@@ -1,32 +1,36 @@
-<div class="container bg-dark text-white min-vh-100 pt-5 px-4 " >  
-
-  <div class="bg-primary px-3 py-3" >
-    <div class="d-flex align-items-center justify-content-between" >
-      <h2>Post #<%=@post.id%> by <%=@user.name%>  </h2>
-      <h6>Comments: <%=@post.comments_counter%> Likes: <%=@post.likes_counter%> </h6>
+<main>
+  <section class="card column">
+    <div class="card column">
+      <h2><%= @post.title %></h2>
+      <p><%= @post.text %></p>
+      <div class="right">
+        <span>Comments: <%= @post.comments_counter %></span>
+        <span>Likes: <%= @post.likes_counter %> </span>
+      </div>
+      <div class="button_field">
+      <% if user_signed_in? %>
+        <%= link_to "Comment", new_user_post_comment_path(user_id: @post.author_id, post_id: @post.id ), class: "btn" %>
+        <%= form_with model: @like, url: user_post_likes_path(post_id: @post.id) do |form| %>
+          <%= form.submit "Like", class: "btn" %>
+        <% end %>
+        <% if can? :destroy, @post %>
+          <%= button_to "Delete post", user_post_path(user_id: @post.author.id, post_id: @post.id), method: :delete, class: "btn"  %>
+        <% end %>
+      <% end %>
+      </div>
     </div>
-    <div class="pt-3" >
-      <p>
-        <%=@post.text%>
-      </p>    
-    </div>    
-
-        <%= link_to 'Like', increment_likes_user_post_path(@user, @post), method: :post, class: 'btn btn-primary border border-white' %>
-        <%= link_to 'Posts', user_posts_path(@user, @post), method: :post, class: 'btn btn-primary border border-white' %>
-        
-        <%= link_to 'Home', users_path, method: :post, class: 'btn btn-primary border border-white' %>
-        
-        <a class="text-white" href="<%=@post.id%>/new_comment">new comment</a>
-
-
-
-  </div>
-
-  <div class="bg-secondary pt-4 px-3" >
-      <%@post.all_comments.each do |comment|%>        
-        <h6  ><%=@user.name%>: </h6>
-        <h6 class="pb-3" ><%=comment.text%></h6> 
-      <%end%>
+    <div class="commets-container">
+      <h4>Comments:</h4>
+      <ul>
+        <% @post.comments.includes(:author).includes(:post).each do |comment| %>
+        <li>
+          <p><%= comment.author.name %>: <%= comment.text %></p>
+          <% if can? :destroy, comment %>
+            <%= button_to "Delete", user_post_comment_path(user_id: comment.author.id, post_id: comment.post.id, id: comment.id), method: :delete, class: "btn"  %>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
     </div>
-
-</div>
+  </section>
+</main>

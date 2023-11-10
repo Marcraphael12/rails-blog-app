@@ -4,10 +4,19 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-  <%= label_tag :name %><br />  
-  <%= text_field_tag :name, '', required: true, name: 'user[name]' %>
-</div>
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
 
+  <div class="field">
+    <%= f.label :bio %><br />
+    <%= f.text_field :bio, autofocus: true, autocomplete: "bio" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :role %><br />
+    <%= f.text_field :role, autofocus: true, autocomplete: "role" %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
@@ -30,8 +39,6 @@
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
-  <%= link_to "¿have not you received the email with instruccions click here! ", new_user_confirmation_path %>
-
 <% end %>
 
 <%= render "devise/shared/links" %>
