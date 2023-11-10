@@ -1,6 +1,6 @@
 class Like < ApplicationRecord
   belongs_to :author, class_name: 'User'
-  belongs_to :post
+  belongs_to :post, class_name: 'Post'
 
   # defining callbacks in the `Comment` model.
   after_create :update_likes_counter
@@ -11,6 +11,6 @@ class Like < ApplicationRecord
   def update_likes_counter
     # updating the `likes_counter` attribute of the
     # associated `post` object with the count of the total number of likes that the post has.
-    post.update(likes_counter: post.likes.count)
+    post.increment(:likes_counter).save
   end
 end

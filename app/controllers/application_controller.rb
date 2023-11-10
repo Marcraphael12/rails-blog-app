@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   # Cross-Site Request Forgery (CSRF) attacks in Rails applications.
   protect_from_forgery with: :exception
 
+  # a callback that ensures that the user is
+  # authenticated before executing any action in the controller. It is commonly used in Rails
+  # applications to restrict access to certain actions or pages to only authenticated users.
   before_action :authenticate_user!
 
   # setting up a
@@ -12,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def update_allowed_parameters
     # configuring the permitted parameters for the sign-up action in the Devise gem.
-    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :email, :password) }
+    devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:name, :bio, :role, :email, :password) }
 
     # configuring the permitted parameters for the account update
     # action in the Devise gem.
