@@ -14,8 +14,14 @@ class LikesController < ApplicationController
   end
 
   def destroy
-    @post = Post.find(params[:id])
-    @author = @post.author
-    @post.decrement!(:likes_counter)
+    @post = Post.find(params[:post_id])
+    @like = @post.likes.find_by(author: current_user)
+
+    if @like
+      @like.destroy
+      redirect_to user_post_path(@post.user, @post), notice: 'Unliked!'
+    else
+      redirect_to user_post_path(@post.user, @post), alert: 'Unlike failed.'
+    end
   end
 end

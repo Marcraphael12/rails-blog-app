@@ -3,8 +3,8 @@ class Ability
 
   def initialize(user)
     # Define abilities for the passed in user
-    if user.role == 'admin'
-      can :manage, :all
+    if user.admin?
+      can :manage, :all # Admin can manage all resources
     else
       can :read, :all
       can :create, Post, author_id: user.id
