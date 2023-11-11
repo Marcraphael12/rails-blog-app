@@ -13,7 +13,6 @@ class UsersController < ApplicationController
     @user = User.new(sign_up_params)
 
     if @user.save
-      # Attach the uploaded photo to the user
       @user.photo.attach(params[:user][:photo]) if params[:user][:photo].present?
 
       sign_in(@user)
