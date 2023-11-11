@@ -7,6 +7,9 @@ ruby '3.1.3'
 gem 'rails', '~> 7.0.7', '>= 7.0.7.2'
 gem 'rails-controller-testing'
 
+# API framework for Ruby
+gem 'rswag-ui'
+
 # Add devise
 gem 'devise'
 
@@ -62,6 +65,7 @@ group :development, :test do
 
   # The following gems aids with the nuts and bolts
   # of interacting with the browser.
+  gem 'rswag'
   gem 'webdrivers'
 end
 

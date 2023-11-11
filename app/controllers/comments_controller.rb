@@ -1,10 +1,6 @@
 class CommentsController < ApplicationController
-  # a before action filter in
-  # Ruby on Rails. It is used to ensure that the user is authenticated before allowing access to certain
-  # actions.
   before_action :authenticate_user!, only: %i[create destroy]
 
-  # use a before action to load the resource into an instance variable and authorize it for every action
   load_and_authorize_resource
 
   def new
