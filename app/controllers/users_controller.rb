@@ -1,14 +1,31 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: [:show]
+
   def index
-    # retrieving all the records from the `User` model and assigning them to the
-    # `@users` instance variable. This allows the retrieved users to be accessed and used in the view.
     @users = User.all
   end
 
   def show
-    # Find a specific user based on the `id` parameter passed
-    # in the request. It assigns the found user to the `@users` instance variable, which can then be
-    # used in the view to display the details of the user.
+    @posts = @user.posts
+  end
+
+  def create
+    @user = User.new(sign_up_params)
+
+    if @user.save
+      # Attach the uploaded photo to the user
+      @user.photo.attach(params[:user][:photo]) if params[:user][:photo].present?
+
+      sign_in(@user)
+      redirect_to root_path
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def find_user
     @user = User.find(params[:id])
   end
 end
