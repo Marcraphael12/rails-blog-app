@@ -32,10 +32,11 @@ RSpec.describe 'Renders users Show Page', type: :feature do
 
   scenario 'Display users first 3 posts' do
     visit user_path(@user.id)
-    expect(page).to have_content(@user.recents_posts[1].text)
-    expect(page).to have_content(@first_post.author.name)
+
     expect(page).to have_content(@user.recents_posts[0].title)
+    expect(page).to have_content(@user.recents_posts[1].text)
     expect(page).to have_content(@user.recents_posts[2].author.id)
+    expect(page).to have_content(@first_post.author.name)
   end
 
   scenario 'Ensure other user posts are not displayed' do
@@ -44,20 +45,16 @@ RSpec.describe 'Renders users Show Page', type: :feature do
   end
 
   scenario 'View all posts button redirects to user posts index page' do
-    # first visit the user page to find the "see all posts button"
     visit user_path(@user)
 
-    # Click "See all posts" button redirects to the user's posts index page
     click_link 'See all posts'
 
-    # this one is checking if user is taken to users/:id/posts
     expect(page).to have_current_path(user_posts_path(@user))
   end
 
   scenario 'Clicking on a user post redirects to post show page' do
     visit user_path(@user)
 
-    # Test: Clicking on a user's post redirects to the post's show page
     click_link('See all posts')
     expect(page).to have_current_path(user_posts_path(@user))
   end
