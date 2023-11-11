@@ -24,14 +24,13 @@ RSpec.feature 'User Index Page', type: :feature do
   scenario 'Testing Number of Posts Display' do
     visit users_path
 
-    # Test: Display number of posts each user has written
     expect(page).to have_content('Number of posts: 5')
   end
 
   scenario 'renders the user show page' do
     visit '/'
     click_link(@user.name, match: :first)
-    expect(page).to have_content(@user.name)
     expect(page).to have_current_path(user_path(@user))
+    expect(page).to have_content(@user.name)
   end
 end

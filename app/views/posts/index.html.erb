@@ -1,5 +1,18 @@
 <main>
-<section>
+  <section>
+    <div class="card pagination">
+      <div class="user-image border">
+        <%= image_tag(@user.photo, class: "add-css-class") %>
+      </div>
+      <div class="user-data border">
+        <h1><%= @user.name %></h1>
+        <% if current_user %>
+          <%= link_to "Add a post",new_user_post_path(@user), method: :get, class: "btn right" %>
+        <% end %>
+      </div>
+    </div>
+  </section>
+  <section>
     <ul>
       <% @posts.each do |post| %>
         <%= link_to user_post_path(user_id: post.author_id, id: post.id) do %>
@@ -24,18 +37,5 @@
         <% end %>
       <% end %>
     </ul>
-  </section>
-  <section>
-    <div class="card pagination">
-      <div class="user-image border">
-        <%= image_tag(@user.photo, class: "add-css-class") %>
-      </div>
-      <div class="user-data border">
-        <h1><%= @user.name %></h1>
-        <% if current_user %>
-          <%= link_to "Add a post",new_user_post_path(@user), method: :get, class: "btn right" %>
-        <% end %>
-      </div>
-    </div>
   </section>
 </main>

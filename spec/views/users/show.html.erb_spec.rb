@@ -32,10 +32,10 @@ RSpec.describe 'Renders users Show Page', type: :feature do
 
   scenario 'Display users first 3 posts' do
     visit user_path(@user.id)
-    expect(page).to have_content(@user.recents_posts[0].title)
     expect(page).to have_content(@user.recents_posts[1].text)
-    expect(page).to have_content(@user.recents_posts[2].author.id)
     expect(page).to have_content(@first_post.author.name)
+    expect(page).to have_content(@user.recents_posts[0].title)
+    expect(page).to have_content(@user.recents_posts[2].author.id)
   end
 
   scenario 'Ensure other user posts are not displayed' do
